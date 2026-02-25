@@ -1,0 +1,54 @@
+# MemeShield - Python Dependencies
+# AI-Powered Hate Speech Detection in Memes
+
+# ============================================
+# Core Framework
+# ============================================
+Flask==2.3.3
+Werkzeug==2.3.7
+
+# ============================================
+# Database
+# ============================================
+mysql-connector-python>=9.0.0
+PyMySQL>=1.1.0
+
+# ============================================
+# Deep Learning / AI
+# ============================================
+tensorflow>=2.16.0
+numpy>=1.26.0
+
+# ============================================
+# Image Processing
+# ============================================
+opencv-python>=4.8.0
+Pillow>=10.0.0
+
+# ============================================
+# OCR (Optical Character Recognition)
+# ============================================
+pytesseract==0.3.10
+
+# ============================================
+# NLP (Natural Language Processing)
+# ============================================
+nltk==3.8.1
+
+# ============================================
+# Environment & Configuration
+# ============================================
+python-dotenv==1.0.0
+
+# ============================================
+# Utilities
+# ============================================
+requests==2.31.0
+
+# ============================================
+# Optional: For Advanced Features
+# ============================================
+# transformers==4.33.0      # For BERT embeddings (future scope)
+# torch==2.0.1              # PyTorch backend (if using BERT)
+# clip-by-openai==0.2.0     # For CLIP model (future scope)
+# langdetect==1.0.9         # Language detection for multilingual support

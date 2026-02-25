@@ -1,0 +1,7 @@
+# Model files directory
+# Place your trained model files here
+
+# Expected files:
+# - fusion_model.h5 (Trained fusion model)
+# - text_encoder.h5 (Text encoder model)
+# - tokenizer.pkl (Fitted tokenizer)

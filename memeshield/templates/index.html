@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemeShield - AI Hate Speech Detection</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>MemeShield</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/" class="active">Home</a></li>
+                <li><a href="/history">History</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>
+                <i class="fas fa-shield-alt shield-icon"></i>
+                MemeShield
+            </h1>
+            <p class="tagline">AI-Powered Hate Speech Detection in Memes</p>
+            <p class="description">
+                Upload any meme image and our multimodal AI system will analyze 
+                both the text and visual content to detect potential hate speech.
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Upload Section -->
+        <section class="upload-section">
+            <div class="upload-card">
+                <h2><i class="fas fa-cloud-upload-alt"></i> Upload Meme</h2>
+                
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <p>Drag & drop your meme here or</p>
+                    <label for="fileInput" class="upload-btn">
+                        <i class="fas fa-folder-open"></i> Browse Files
+                    </label>
+                    <input type="file" id="fileInput" accept="image/*" hidden>
+                    <p class="file-types">Supported: PNG, JPG, JPEG, GIF, WEBP (Max 16MB)</p>
+                </div>
+
+                <!-- Image Preview -->
+                <div class="preview-container" id="previewContainer" style="display: none;">
+                    <img id="imagePreview" src="" alt="Meme Preview">
+                    <button class="remove-btn" id="removeBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <!-- Analyze Button -->
+                <button class="analyze-btn" id="analyzeBtn" disabled>
+                    <i class="fas fa-search"></i> Analyze Meme
+                </button>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection" style="display: none;">
+            <div class="results-card">
+                <h2><i class="fas fa-chart-bar"></i> Analysis Results</h2>
+                
+                <!-- Loading State -->
+                <div class="loading" id="loadingState" style="display: none;">
+                    <div class="spinner"></div>
+                    <p>Analyzing meme...</p>
+                    <div class="loading-steps">
+                        <span id="step1"><i class="fas fa-check-circle"></i> Extracting text (OCR)</span>
+                        <span id="step2"><i class="fas fa-circle"></i> Processing image</span>
+                        <span id="step3"><i class="fas fa-circle"></i> Running AI analysis</span>
+                    </div>
+                </div>
+
+                <!-- Results Content -->
+                <div class="results-content" id="resultsContent" style="display: none;">
+                    <!-- Prediction Badge -->
+                    <div class="prediction-badge" id="predictionBadge">
+                        <div class="badge-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="badge-text">
+                            <span class="label" id="predictionLabel">Non-Hate Speech</span>
+                            <span class="confidence" id="confidenceScore">Confidence: 95%</span>
+                        </div>
+                    </div>
+
+                    <!-- Extracted Text -->
+                    <div class="result-item">
+                        <h3><i class="fas fa-font"></i> Extracted Text</h3>
+                        <div class="extracted-text" id="extractedText">
+                            <p>No text detected</p>
+                        </div>
+                    </div>
+
+                    <!-- Processed Text -->
+                    <div class="result-item">
+                        <h3><i class="fas fa-cogs"></i> Processed Text</h3>
+                        <div class="processed-text" id="processedText">
+                            <p>N/A</p>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Details -->
+                    <div class="analysis-details">
+                        <div class="detail-item">
+                            <i class="fas fa-eye"></i>
+                            <span>Visual Analysis</span>
+                            <strong id="visualStatus">Complete</strong>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-language"></i>
+                            <span>Text Analysis</span>
+                            <strong id="textStatus">Complete</strong>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-brain"></i>
+                            <span>Fusion Model</span>
+                            <strong id="fusionStatus">Complete</strong>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="result-actions">
+                        <button class="action-btn secondary" id="newAnalysisBtn">
+                            <i class="fas fa-redo"></i> New Analysis
+                        </button>
+                        <a href="/history" class="action-btn primary">
+                            <i class="fas fa-history"></i> View History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section class="how-it-works" id="about">
+            <h2><i class="fas fa-question-circle"></i> How It Works</h2>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-icon"><i class="fas fa-upload"></i></div>
+                    <h3>Upload</h3>
+                    <p>Upload any meme image through our simple interface</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-icon"><i class="fas fa-text-height"></i></div>
+                    <h3>OCR Processing</h3>
+                    <p>Tesseract OCR extracts text from the meme image</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-icon"><i class="fas fa-image"></i></div>
+                    <h3>Visual Analysis</h3>
+                    <p>CNN (MobileNetV2) extracts visual features</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <div class="step-icon"><i class="fas fa-brain"></i></div>
+                    <h3>AI Fusion</h3>
+                    <p>Multimodal model combines text + image for final prediction</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <i class="fas fa-image"></i>
+                    <div class="stat-value" id="totalAnalyzed">0</div>
+                    <div class="stat-label">Memes Analyzed</div>
+                </div>
+                <div class="stat-card hate">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div class="stat-value" id="hateDetected">0</div>
+                    <div class="stat-label">Hate Speech Detected</div>
+                </div>
+                <div class="stat-card safe">
+                    <i class="fas fa-check-circle"></i>
+                    <div class="stat-value" id="safeContent">0</div>
+                    <div class="stat-label">Safe Content</div>
+                </div>
+                <div class="stat-card">
+                    <i class="fas fa-percentage"></i>
+                    <div class="stat-value" id="avgConfidence">0%</div>
+                    <div class="stat-label">Avg. Confidence</div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <i class="fas fa-shield-alt"></i>
+                <span>MemeShield</span>
+            </div>
+            <p>AI-Powered Hate Speech Detection System</p>
+            <p class="copyright">&copy; 2026 MemeShield. Built with TensorFlow & Flask.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
